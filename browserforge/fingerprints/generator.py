@@ -99,22 +99,22 @@ class Fingerprint:
         # Instead, convert to a dict first
         return json.dumps(asdict(self))
     
-@classmethod
-def loads(cls, json_string: str) -> 'Fingerprint':
-    """
-    Loads a fingerprint from a JSON string.
-    """
-    data = json.loads(json_string)
+    @classmethod
+    def loads(cls, json_string: str) -> 'Fingerprint':
+        """
+        Loads a fingerprint from a JSON string.
+        """
+        data = json.loads(json_string)
 
-    # Reconstruct nested dataclasses
-    if 'screen' in data:
-        data['screen'] = ScreenFingerprint(**data['screen'])
-    if 'navigator' in data:
-        data['navigator'] = NavigatorFingerprint(**data['navigator'])
-    if 'videoCard' in data and data['videoCard']:
-        data['videoCard'] = VideoCard(**data['videoCard'])
+        # Reconstruct nested dataclasses
+        if 'screen' in data:
+            data['screen'] = ScreenFingerprint(**data['screen'])
+        if 'navigator' in data:
+            data['navigator'] = NavigatorFingerprint(**data['navigator'])
+        if 'videoCard' in data and data['videoCard']:
+            data['videoCard'] = VideoCard(**data['videoCard'])
 
-    return cls(**data)
+        return cls(**data)
 
 @dataclass
 class Screen:
